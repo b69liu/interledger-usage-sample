@@ -1,0 +1,15 @@
+{
+  "name": "interledger",
+  "version": "1.0.0",
+  "description": "A sample to use interledger protocol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caleb Liu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0"
+  }
+}
