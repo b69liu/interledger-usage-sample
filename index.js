@@ -7,7 +7,8 @@ const rippleAccountId = process.env.RIPPLE_ACCOUNT_ID;
 const githubId = process.env.GITHUB_ID;
 const rippleBaseUrl = `https://rxprod.wc.wallet.ripplex.io/accounts/${githubId}`;
 const rippleBalanceUrl = `${rippleBaseUrl}/balance`;
-const ripplePaymentUrl = `${rippleBaseUrl}/pay`;
+// const ripplePaymentUrl = `${rippleBaseUrl}/pay`;
+const ripplePaymentUrl = `https://ripplex.io/portal/ilp/hermes/accounts/b69liu/pay`;
 const ripplexToken = process.env.RIPPLEX_TOKEN;
 
 const rafikiPaymentPointer = process.env.RAFIKI_PAYMENT_POINTER;
@@ -30,7 +31,6 @@ async function getBalance(url, token){
     }
 }
 
-// RippleX.io is dead, not sure what is the new api endpoint
 async function sendMoneyFromRippleToRifiki(paymentUrl, paymentPointer, amount, token){
     try{
         const response = await axios.post(paymentUrl, {
@@ -84,13 +84,14 @@ async function main(){
     await getBalance(rippleBalanceUrl, ripplexToken).then((result) => {
         console.log("Ripple Balance:",result);
     });
-    await getBalance(rafikiBalanceUrl, rafikiToken).then((result) => {
-        console.log("Rafiki Balance:",result);
-    });
-    // sendMoneyFromRippleToRifiki(ripplePaymentUrl, rafikiPaymentPointer, "100000000", ripplexToken);
-    sendMoneyFromRifikiToRipple(rafikiPaymentUrl, rippleAccountId, "1000000", rafikiToken).then((result) => {
-        console.log("sendMoneyFromRifikiToRipple result:",result);
-    });;
+    // await getBalance(rafikiBalanceUrl, rafikiToken).then((result) => {
+    //     console.log("Rafiki Balance:",result);
+    // });
+    const payresult = await sendMoneyFromRippleToRifiki(ripplePaymentUrl, rafikiPaymentPointer, "100000000", ripplexToken);
+    console.log(payresult)
+    // sendMoneyFromRifikiToRipple(rafikiPaymentUrl, rippleAccountId, "1000000", rafikiToken).then((result) => {
+    //     console.log("sendMoneyFromRifikiToRipple result:",result);
+    // });;
 
 }
 
